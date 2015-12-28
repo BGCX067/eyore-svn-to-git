@@ -1,0 +1,31 @@
+<project name="ExampleJob-OptWordCount">
+
+	<target name="build">
+		<echo message="Building ExampleJob-OptWordCount" />
+	
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
+				<fileset dir="../Common/build">
+					<include name="eyore-common.jar"/>
+				</fileset>
+				<fileset dir="../Common/lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		
+		<jar destfile="build/examplejob-optwordcount.jar">
+			<fileset dir="build/classes">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<echo message="Clean ExampleJob-OptWordCount" />
+		<delete dir="build" />
+	</target>
+
+</project>

@@ -1,0 +1,31 @@
+<project name="Client">
+
+	<target name="build">
+		<echo message="Building Client" />
+	
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
+				<fileset dir="../Common/build">
+					<include name="eyore-common.jar"/>
+				</fileset>
+				<fileset dir="../Common/lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		
+		<jar destfile="build/eyore-client.jar">
+			<fileset dir="build/classes">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<echo message="Clean Client" />
+		<delete dir="build" />
+	</target>
+
+</project>

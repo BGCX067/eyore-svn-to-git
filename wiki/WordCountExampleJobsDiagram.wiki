@@ -1,0 +1,8 @@
+#summary Vertex Stage Diagram of Optimized and MapReduce-style Word Count Program
+
+= Introduction =
+* These are 2 jobs we should implement & compare after getting the infrastructure working on something simpler like the "echo job" currently in the SVN
+
+= Details =
+* On Google Docs - https://docs.google.com/drawings/edit?id=1G2ep169We7uoxinOpeIgng2vP9u5lMvGB_irSKtftmI&hl=en&authkey=CJ3aiqgL
+  * This is from the paper http://simula.no/research/nd/publications/Simula.ND.321/simula_pdf_file

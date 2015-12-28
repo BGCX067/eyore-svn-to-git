@@ -1,0 +1,107 @@
+<project name="eyore" default="all">
+	<target name="all" description="Cleans everything and builds everything">
+		<antcall target="clean" />
+		<antcall target="build" />
+		<antcall target="create.bin" />
+	</target>
+
+	<filelist id="modules">
+		<file name="Common/build.xml" />
+		<file name="Client/build.xml" />
+		<file name="VertexServer/build.xml" />
+		<file name="JobServer/build.xml" />
+		
+		<!-- example jobs -->
+		<file name="ExampleJob-Echo/build.xml" />
+		<file name="ExampleJob-OptWordCount/build.xml" />
+		<file name="ExampleJob-MRWordCount/build.xml" />
+	</filelist>
+	
+
+	<target name="build" description="Builds all sub-projects">
+		<subant target="build">
+			<filelist refid="modules" />
+		</subant>
+		
+		<antcall target="package" />
+	</target>
+	
+	<target name="package">
+
+		
+		<copy todir="build/eyore/examplejobs">
+			<fileset dir="ExampleJob-Echo/build">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="ExampleJob-OptWordCount/build">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="ExampleJob-MRWordCount/build">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		
+		<copy todir="build/eyore/lib">
+			
+			<fileset dir="Common/lib">
+				<include name="*.jar" />
+			</fileset>
+			
+			<fileset dir="Common/build">
+				<include name="eyore-common.jar" />
+			</fileset>
+			
+			<fileset dir="VertexServer/build">
+				<include name="eyore-vertexserver.jar" />
+			</fileset>
+			
+			<fileset dir="JobServer/build">
+				<include name="eyore-jobserver.jar" />
+			</fileset>
+			
+			<fileset dir="Client/build">
+				<include name="eyore-client.jar" />
+			</fileset>						
+		</copy>
+		
+		<copy todir="build/eyore/conf">
+			<fileset dir="Client/src/edu/colorado/eyore/client/resource">
+				<include name="*.properties"/>
+			</fileset>			
+			<fileset dir="VertexServer/src/edu/colorado/eyore/vserver/resource">
+				<include name="*.properties"/>
+			</fileset>
+			<fileset dir="JobServer/src/edu/colorado/eyore/jserver/resource">
+				<include name="*.properties"/>
+			</fileset>
+
+		</copy>
+		
+		<copy todir="build/eyore">
+			<fileset dir="Client/src/edu/colorado/eyore/client/resource">
+				<include name="*.sh"/>
+			</fileset>			
+			<fileset dir="VertexServer/src/edu/colorado/eyore/vserver/resource">
+				<include name="*.sh"/>
+			</fileset>
+			<fileset dir="JobServer/src/edu/colorado/eyore/jserver/resource">
+				<include name="*.sh"/>
+			</fileset>
+		</copy>		
+	</target>
+
+	<target name="create.bin"  description="Create all binaries">
+		<echo message="Creating Binaries" />
+		<tar destfile="build/eyore.tar" basedir="build/eyore">
+		</tar>
+	</target>
+
+	<target name="clean" description="Cleans all sub-projects">
+		<subant target="clean">
+			<filelist refid="modules" />
+		</subant>
+		
+		<delete dir="build" />
+	</target>
+	
+</project>

@@ -1,0 +1,27 @@
+<project name="Common">
+
+	<target name="clean">
+		<echo message="Clean Common" />
+		<delete dir="build" />
+	</target>
+
+	<target name="build">
+		<echo message="Building Common" />
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes">
+			<classpath>
+				<fileset dir="lib">
+					<include name="**/*jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		
+		<jar destfile="build/eyore-common.jar">
+			<fileset dir="build/classes">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+			</fileset>
+		</jar>
+	</target>
+	
+</project>
